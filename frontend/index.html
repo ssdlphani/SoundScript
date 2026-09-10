@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundScript — Sound Intelligence</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <div class="app-shell">
+
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">◉</div>
+                <div>
+                    <h1>SoundScript</h1>
+                    <p>Sound Intelligence</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active"><span>⌂</span> Dashboard</a>
+                <a href="#" class="nav-item"><span>◷</span> History</a>
+                <a href="#" class="nav-item"><span>⚙</span> Settings</a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    <div>
+                        <strong id="statusText">System Ready</strong>
+                        <small>Microphone connected</small>
+                    </div>
+                </div>
+                <div class="version">SoundScript v1.0</div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <span class="eyebrow">LIVE MONITOR</span>
+                    <h2>Sound Environment</h2>
+                </div>
+                <button class="settings-button" type="button">⚙</button>
+            </header>
+
+            <section class="current-card">
+                <div class="section-label">CURRENTLY DETECTING</div>
+
+                <div class="current-content">
+                    <div class="sound-orb">
+                        <div class="orb-ring"></div>
+                        <div class="orb-core">
+                            <span id="currentIcon">🎙️</span>
+                        </div>
+                    </div>
+
+                    <div class="current-info">
+                        <h3 id="currentSound">Waiting...</h3>
+
+                        <div class="live-indicator">
+                            <span class="live-dot"></span> LIVE
+                        </div>
+
+                        <div class="confidence-row">
+                            <div class="confidence-value">
+                                <strong id="confidence">0</strong>
+                                <span>%</span>
+                            </div>
+
+                            <div class="confidence-info">
+                                <span>Detection Confidence</span>
+                                <div class="confidence-track">
+                                    <div id="confidenceBar" class="confidence-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timestamp">
+                            <span>●</span>
+                            <span id="timestamp">Microphone input waiting for audio...</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-grid">
+
+                <section class="panel transcript-panel">
+                    <div class="panel-header">
+                        <div>
+                            <span class="panel-kicker">SPEECH</span>
+                            <h3>Live Transcript</h3>
+                        </div>
+                        <span class="panel-icon">🎙️</span>
+                    </div>
+
+                    <div id="transcript" class="transcript-box">
+                        <span class="quote-mark">“</span>
+                        <p>Speech detected from the microphone will appear here.</p>
+                    </div>
+
+                    <div class="transcript-footer">
+                        <span>Whisper Speech Recognition</span>
+                        <span class="engine-badge">EN</span>
+                    </div>
+                </section>
+
+                <section class="panel sounds-panel">
+                    <div class="panel-header">
+                        <div>
+                            <span class="panel-kicker">YAMNET</span>
+                            <h3>Detected Sounds</h3>
+                        </div>
+                        <span class="panel-icon">〽</span>
+                    </div>
+
+                    <div class="sound-list" id="soundList">
+                        <div class="sound-row" data-sound="speech">
+                            <div class="sound-name"><span class="sound-dot speech"></span> Speech</div>
+                            <div class="sound-meter">
+                                <div class="sound-fill" id="speechBar"></div>
+                            </div>
+                            <strong id="speechValue">0%</strong>
+                        </div>
+
+                        <div class="sound-row" data-sound="dog">
+                            <div class="sound-name"><span class="sound-dot dog"></span> Dog</div>
+                            <div class="sound-meter">
+                                <div class="sound-fill" id="dogBar"></div>
+                            </div>
+                            <strong id="dogValue">0%</strong>
+                        </div>
+
+                        <div class="sound-row" data-sound="vehicle">
+                            <div class="sound-name"><span class="sound-dot vehicle"></span> Vehicle</div>
+                            <div class="sound-meter">
+                                <div class="sound-fill" id="vehicleBar"></div>
+                            </div>
+                            <strong id="vehicleValue">0%</strong>
+                        </div>
+
+                        <div class="sound-row" data-sound="alarm">
+                            <div class="sound-name"><span class="sound-dot alarm"></span> Alarm</div>
+                            <div class="sound-meter">
+                                <div class="sound-fill" id="alarmBar"></div>
+                            </div>
+                            <strong id="alarmValue">0%</strong>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <section class="panel events-panel">
+                <div class="panel-header">
+                    <div>
+                        <span class="panel-kicker">ACTIVITY</span>
+                        <h3>Recent Events</h3>
+                    </div>
+                    <button class="clear-button" type="button" onclick="clearEvents()">Clear</button>
+                </div>
+
+                <div id="events" class="events-list">
+                    <div class="empty-events">No events detected yet.</div>
+                </div>
+            </section>
+
+            <div class="control-bar">
+                <div class="connection-state">
+                    <span class="connection-dot" id="connectionDot"></span>
+                    <span id="connectionText">Ready to listen</span>
+                </div>
+
+                <div class="controls">
+                    <button id="startButton" class="control-button start" type="button">
+                    <span>●</span> Start Listening
+                </button>
+                    <button id="stopButton" class="control-button stop" type="button" disabled>
+                    <span>■</span> Stop Listening
+                </button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
